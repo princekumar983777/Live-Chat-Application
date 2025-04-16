@@ -42,3 +42,25 @@ export const sendMessage = async (req, res , next) => {
     }
 
 }
+
+export const getMessages = async (req, res, next) => { 
+    try{
+        const {id : userToMessage } = req.params;
+        const senderID = req.user.id;
+
+        const conversation = await Conversation.findOne({
+            participants:{
+                $all: [senderID, userToMessage]
+            }
+        }).populate("messages")
+
+        if(!conversation){
+            return res.status(200).json([]);
+        }
+
+        const messages = conversation.messages 
+        res.status(200).json(messages)
+    } catch (error) {
+        next(error);
+    }
+}
