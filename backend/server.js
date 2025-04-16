@@ -4,10 +4,6 @@ import mongoose from "mongoose";
 
 dotenv.config();
 
-// const uri = "mongodb+srv://princekumar9837771886:ViWeg00vxgVH8PFP@cluster0.nsj9bur.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
-// const MONGO_URI = "mongodb+srv://princekumar9837771886:ViWeg00vxgVH8PFP@cluster0.nsj9bur.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
 const MONGO_URI = process.env.MONGO_URI; // Use the environment variable for MongoDB URI
 if (!MONGO_URI) {
     console.error("MongoDB URI not provided in .env file");
