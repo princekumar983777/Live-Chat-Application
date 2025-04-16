@@ -1,6 +1,7 @@
 import express from "express";;
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -17,6 +18,9 @@ mongoose.connect(MONGO_URI)  // Mongoose 8.x doesn't need useNewUrlParser and us
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+
+app.use(express.json()); // Middleware to parse JSON requests
+app.use(cookieParser()); // Middleware to parse cookies
 
 app.get("/", (req, res) => {
     res.send("Hello World");
