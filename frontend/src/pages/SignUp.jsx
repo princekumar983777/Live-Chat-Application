@@ -86,7 +86,13 @@ const Signup = () => {
 
 
                     <Link to={"/login"} className='text-sm hover:underline hover:text-blue-600 mt-2 inline-block'>Already have an account</Link>  
-                    <button type ='submit' className='btn btn-primary w-full mt-4'>Signup</button> 
+                    <button type ='submit' className='btn btn-primary w-full mt-4' disabled={loading} >
+                        {loading ? (
+<span className="loading loading-spinner" ></span>
+                        ): (
+                            "sign Up"
+                        )}
+                        </button> 
                 </form>
             </div>
         </div>
