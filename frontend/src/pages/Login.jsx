@@ -21,7 +21,7 @@ const handleSubmit= async (e) => {
         <div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
             <div className='flex flex-col items-center justify-center gap-2 w-full p-6 rounded-lg shadow-md bg-gray-200 text-neutral-900'>
                 <h1 className='text-3xl font-bold text-center  '>Login</h1>
-                <form onClick={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div>
                         <label className='label p-2'>
                             <span className='text-base label-text'>User Email</span>

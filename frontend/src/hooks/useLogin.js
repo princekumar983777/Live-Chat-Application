@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 const handleInputError = ({email, password}) => {
     if (!email || !password) {
+        console.log("Input error detected"); // Debugging
         toast.error("fill all the context")
         return true
     }
@@ -20,13 +21,14 @@ const useLogin = () => {
         const checkError = handleInputError({
             email,
             password
-        })
+        });
 
         if (checkError) {
-            return
+            return;
         }
+
         try {
-            setLoading(true)
+            setLoading(true);
             const res = await fetch("/api/auth/login", {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
@@ -34,21 +36,25 @@ const useLogin = () => {
                     email,
                     password,
                 }),
-            })
+            });
 
-            const data = await res.json()
+            const data = await res.json();
+            console.log(data['success']);
 
-            if (data.error) {
-                throw new Error(data.error)
+            // Check if the response indicates success
+            if (!data.success) {
+                throw new Error(data.message || "Login failed");
             }
-            // console.log(data);
-            localStorage.setItem("user",JSON.stringify(data))
-            setAuthUser(data)
+
+            // If successful, store user data and update auth context
+            localStorage.setItem("user", JSON.stringify(data));
+            setAuthUser(data);
 
         } catch (error) {
-            toast.error(error.message)
+            // Show error message using toast
+            toast.error(error.message);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     }
 
