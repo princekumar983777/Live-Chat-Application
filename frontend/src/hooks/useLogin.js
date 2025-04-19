@@ -39,10 +39,10 @@ const useLogin = () => {
             });
 
             const data = await res.json();
-            console.log(data['success']);
+            console.log(data);
 
             // Check if the response indicates success
-            if (!data.success) {
+            if (!data._id) {
                 throw new Error(data.message || "Login failed");
             }
 
