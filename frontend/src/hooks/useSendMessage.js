@@ -17,31 +17,32 @@ const useSendMessage = () => {
             return
         }
         
-        const res = await fetch(`api/messages/send/${selectedConversation._id}`, {
+        const res = await fetch(`/api/messages/send/${selectedConversation._id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({message})
+            body: JSON.stringify({ message })
         })
-        const data = await res.json()
-        // console.log('Response data:', data)
         
-        if(data.error){
+        const data = await res.json()
+
+        if(data.error) {
             throw new Error(data.error)
         }
+
+        // Add the new message from the response to messages
+        if(data.newMessage) {
+            setMessages([...messages, data.newMessage])
+        }
         
-        setMessages([...messages, data])
-        // return data // Return the response data
     } catch (error) {
-        // console.error('Error sending message:', error)
         toast.error(error.message)
-        // throw error // Re-throw the error to handle it in the component
     } finally {
         setLoading(false)
     }
   }
-  return {sendMessage, loading}
+  return { sendMessage, loading }
 }
 
 export default useSendMessage
