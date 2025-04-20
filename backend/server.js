@@ -2,6 +2,7 @@ import express from "express";;
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import { app , server } from "./socket/socket.js";
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ mongoose.connect(MONGO_URI)  // Mongoose 8.x doesn't need useNewUrlParser and us
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Error connecting to MongoDB:', err));
 
-const app = express();
+// const app = express();
 
 const PORT = process.env.PORT || 3000;
 
@@ -31,11 +32,12 @@ import authRoutes from "./routes/auth.routes.js";
 import messageRoute from "./routes/message.routes.js";
 import userRoute from "./routes/user.routes.js";
 
+
 app.use("/api/auth", authRoutes); 
 app.use("/api/messages", messageRoute);
 app.use("/api/user", userRoute);
 
-app.listen(PORT,  () => {
+server.listen(PORT,  () => {
     console.log("Server is running on port ", PORT);
 });
 
